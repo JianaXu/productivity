@@ -1,5 +1,5 @@
 {% extends "input/base.html" %}
-{% block about %}
+{% block content %}
 
 <article class="media content-section">
   <div class="media-body">
@@ -20,6 +20,7 @@
     </div>
 </div>
 </article>
+{% endblock content %}
 
 
 {% block javascript %}
@@ -96,6 +97,5 @@ function task_table(tasks) {
         document.getElementById("task_table").innerHTML = tableHTML
     }
 </script>
-{% endblock %}
 {% endblock %}
 

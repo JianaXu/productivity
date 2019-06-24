@@ -6,9 +6,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 
 class ActionForm(forms.ModelForm):
-	user_name = forms.CharField()
-	task = forms.CharField(required = False)
-	work_complete = forms.CharField(required = False)
+	user_name = forms.CharField(label = '')
+	task = forms.CharField(required = False, label = '')
+	work_complete = forms.CharField(required = False, label = '')
 	
 	class Meta:
 		model = Post

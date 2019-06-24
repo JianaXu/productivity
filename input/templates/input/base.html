@@ -22,7 +22,6 @@
 </head>
 
 <body>
-
 	<header class="site-header">
 	  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 		<div class="container">
@@ -45,22 +44,17 @@
 	</header>
 
 	<main role="main" class="container">
-	  <div class="row">
-	    <div class="col-md-8">
-	    {% block content %}{% endblock%}
-		</div>
+		<div id = "full page">
+	      {% block content %}{% endblock %}
+	    </div>
+		<div class="row">
 		<div class="col-md-4">
-    	{% block admin %}{% endblock %}
+    	{% block admin-right %}{% endblock %}
+		</div>
+		<div class="col-md-8">
+	    {% block admin-left %}{% endblock%}
 		</div>
 		</div>
-
-	    <div id = "home-page">
-	      {% block home %}{% endblock %}
-	    </div>
-
-	    <div id = "abount-page">
-	      {% block about %}{% endblock %}
-	    </div>
 	</main>
 
 
@@ -82,7 +76,7 @@
 	    })
     </script>
 
-	{% block javascript %}{% endblock %}
+    {% block javascript %} {% endblock javascript %}
 
 </body>
 </html>
