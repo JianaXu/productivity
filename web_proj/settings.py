@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-import json
-
 # with open('/etc/config.json') as config_file:
 #     config = json.load(config.file)
 
@@ -30,7 +28,9 @@ SECRET_KEY = 'a!z6n0p)v+da1nwhxx5#l_tuaikcf#8(1b$qk)vmdtr19&_*h&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+print(ALLOWED_HOSTS)
+assert all(ALLOWED_HOSTS)
 
 
 # Application definition
@@ -80,14 +80,42 @@ TEMPLATES = [
 WSGI_APPLICATION = 'web_proj.wsgi.application'
 
 
+APP_MYSQL_UNIX_SOCKET = os.getenv('APP_MYSQL_UNIX_SOCKET')
+APP_MYSQL_DB = os.getenv('APP_MYSQL_DB')
+APP_MYSQL_USERNAME = os.getenv('APP_MYSQL_USERNAME')
+APP_MYSQL_PASSWORD = os.getenv('APP_MYSQL_PASSWORD')
+APP_MYSQL_HOST = os.getenv('APP_MYSQL_HOST')
+APP_MYSQL_PORT = os.getenv('APP_MYSQL_PORT')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wpt',
-        'USER':'root',
-        'PASSWORD': 'Garena.com',
+        'CONN_MAX_AGE': 600,
+        'HOST': APP_MYSQL_HOST,
+        'PORT': APP_MYSQL_PORT,
+        'NAME': APP_MYSQL_DB,
+        'USER': APP_MYSQL_USERNAME,
+        'PASSWORD': APP_MYSQL_PASSWORD,
+        'OPTIONS': {
+            'sql_mode': 'TRADITIONAL',
+            'charset': 'utf8mb4',
+            'init_command': 'SET '
+                            'character_set_client=utf8mb4,'
+                            'character_set_connection=utf8mb4,'
+                            'character_set_database=utf8mb4,'
+                            'character_set_results=utf8mb4,'
+                            'character_set_server=utf8mb4,'
+                            'collation_connection=utf8mb4_general_ci,'
+                            'collation_database=utf8mb4_general_ci,'
+                            'collation_server=utf8mb4_general_ci'
+        },
     }
 }
+
+if APP_MYSQL_UNIX_SOCKET:
+    DATABASES['default'].pop('HOST')
+    DATABASES['default'].pop('PORT')
+    DATABASES['default']['OPTIONS']['unix_socket'] = APP_MYSQL_UNIX_SOCKET
 
 
 # Password validation
@@ -127,6 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.getenv('STATIC_ROOT')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
