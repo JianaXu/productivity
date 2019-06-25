@@ -127,3 +127,6 @@ dmypy.json
 
 #database folder
 /database
+
+
+.whl

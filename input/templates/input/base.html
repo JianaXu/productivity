@@ -43,24 +43,19 @@
 		</div>
 	  </nav>
 	</header>
-
+	
 	<main role="main" class="container">
-	  <div class="row">
-	    <div class="col-md-8">
-	    {% block content %}{% endblock%}
-		</div>
+		<div id = "full page">
+	      {% block content %}{% endblock %}
+	    </div>
+		<div class="row">
 		<div class="col-md-4">
-    	{% block admin %}{% endblock %}
+    	{% block admin-left %}{% endblock %}
+		</div>
+		<div class="col-md-8">
+	    {% block admin-right %}{% endblock%}
 		</div>
 		</div>
-
-	    <div id = "home-page">
-	      {% block home %}{% endblock %}
-	    </div>
-
-	    <div id = "abount-page">
-	      {% block about %}{% endblock %}
-	    </div>
 	</main>
 
 

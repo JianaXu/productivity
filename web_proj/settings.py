@@ -159,4 +159,4 @@ STATIC_ROOT = os.getenv('STATIC_ROOT')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'input:admin'
+LOGIN_REDIRECT_URL = 'input:dashboard'

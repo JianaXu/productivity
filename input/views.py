@@ -259,3 +259,14 @@ def download_input_post(request):
     return response
 
 
+def download_user_profile(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="User_Profiles_'+ str(datetime.datetime.now())+ '.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['task', 'user', 'work_complete', 'action', 'members', 'ctime'])
+    profiles = Profile.objects.all()
+    for row in profiles:
+        writer.writerow([row.user_id, row.name, row.is_grp, row.is_lead, row.default_function])
+    return response  
